@@ -26,7 +26,7 @@ func main() {
 	case *list:
 		for _, item := range *l {
 			if !item.Done {
-				fmt.Printf("%s\n", item.Task)
+				fmt.Print(l)
 			}
 		}
 	case *complete > 0:

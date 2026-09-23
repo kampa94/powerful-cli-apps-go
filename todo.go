@@ -5,8 +5,23 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 )
+
+func (l *List) String() string {
+	var formatted strings.Builder
+	for k, t := range *l {
+		prefix := "  "
+		if t.Done {
+			prefix = "X "
+		}
+
+		// Adjust the item number k to print numbers starting from 1 instead of 0
+		formatted.WriteString(fmt.Sprintf("%s%d: %s\n", prefix, k+1, t.Task))
+	}
+	return formatted.String()
+}
 
 type item struct {
 	Task        string
