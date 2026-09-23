@@ -7,9 +7,12 @@ import (
 	"todo"
 )
 
-const todoFileName = ".todo.json"
+var todoFileName = ".todo.json"
 
 func main() {
+	if os.Getenv("TODO_FILENAME") != "" {
+		todoFileName = os.Getenv("TODO_FILENAME")
+	}
 	task := flag.String("task", "", "Task to be added to the list")
 	list := flag.Bool("list", false, "List all tasks")
 	complete := flag.Int("complete", 0, "Mark a task as complete by its index")
