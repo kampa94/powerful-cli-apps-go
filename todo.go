@@ -11,14 +11,9 @@ import (
 
 func (l *List) String() string {
 	var formatted strings.Builder
-	for k, t := range *l {
-		prefix := "  "
-		if t.Done {
-			prefix = "X "
-		}
-
-		// Adjust the item number k to print numbers starting from 1 instead of 0
-		formatted.WriteString(fmt.Sprintf("%s%d: %s\n", prefix, k+1, t.Task))
+	formatted.WriteString(fmt.Sprintf("%-5s | %-50s\n", "Index", "Task"))
+	for i, item := range *l {
+		formatted.WriteString(fmt.Sprintf("%-5d | %s \n", i, item.Task))
 	}
 	return formatted.String()
 }
