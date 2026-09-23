@@ -11,9 +11,9 @@ import (
 
 func (l *List) String() string {
 	var formatted strings.Builder
-	formatted.WriteString(fmt.Sprintf("%-5s | %-50s\n", "Index", "Task"))
 	for i, item := range *l {
-		formatted.WriteString(fmt.Sprintf("%-5d | %s \n", i, item.Task))
+		prefix := "  "
+		formatted.WriteString(fmt.Sprintf("%s%d: %s\n", prefix, i+1, item.Task))
 	}
 	return formatted.String()
 }
