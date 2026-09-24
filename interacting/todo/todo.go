@@ -50,7 +50,7 @@ func (l *List) Complete(i int) error {
 func (l *List) Delete(i int) error {
 	ls := *l
 	if i < 0 || i >= len(ls) {
-		return fmt.Errorf("Item %d does not exist", i)
+		return fmt.Errorf("Item %d does not exist", i+1)
 	}
 	*l = append(ls[:i], ls[i+1:]...)
 	return nil

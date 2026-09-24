@@ -19,24 +19,25 @@ func main() {
 	add := flag.Bool("add", false, "Add task to the ToDo list")
 	list := flag.Bool("list", false, "List all tasks")
 	complete := flag.Int("complete", 0, "Mark a task as complete by its index")
+	del := flag.Int("del", 0, "Delete a task by index")
 	flag.Parse()
 
-	l := &todo.List{}
+	todoList := &todo.List{}
 
-	if err := l.Get(todoFileName); err != nil {
+	if err := todoList.Get(todoFileName); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 
 	switch {
 	case *list:
-		fmt.Print(l)
+		fmt.Print(todoList)
 	case *complete > 0:
-		if err := l.Complete(*complete - 1); err != nil {
+		if err := todoList.Complete(*complete - 1); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
-		if err := l.Save(todoFileName); err != nil {
+		if err := todoList.Save(todoFileName); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
@@ -46,8 +47,17 @@ func main() {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
-		l.Add(task)
-		if err := l.Save(todoFileName); err != nil {
+		todoList.Add(task)
+		if err := todoList.Save(todoFileName); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+	case *del > 0:
+		if err := todoList.Delete(*del - 1); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		if err := todoList.Save(todoFileName); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
