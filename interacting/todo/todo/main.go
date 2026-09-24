@@ -18,6 +18,7 @@ func main() {
 	}
 	add := flag.Bool("add", false, "Add task to the ToDo list")
 	list := flag.Bool("list", false, "List all tasks")
+	all := flag.Bool("all", false, "List all tasks")
 	complete := flag.Int("complete", 0, "Mark a task as complete by its index")
 	del := flag.Int("del", 0, "Delete a task by index")
 	flag.Parse()
@@ -36,6 +37,8 @@ func main() {
 				todoList.Delete(i)
 			}
 		}
+		fmt.Print(todoList)
+	case *all:
 		fmt.Print(todoList)
 	case *complete > 0:
 		if err := todoList.Complete(*complete - 1); err != nil {

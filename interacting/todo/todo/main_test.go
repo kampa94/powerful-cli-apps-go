@@ -71,19 +71,7 @@ func TestTodoCLI(t *testing.T) {
 			t.Fatal(err)
 		}
 	})
-	t.Run("ListTasks", func(t *testing.T) {
-		cmd := exec.Command(cmdPath, "-list")
-		out, err := cmd.CombinedOutput()
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		expected := fmt.Sprintf("  1: %s\n  2: %s\n", task, task2)
-
-		if expected != string(out) {
-			t.Errorf("Expected %q, got %q", expected, string(out))
-		}
-	})
+	//
 
 	//	complete test
 	t.Run("CompleteTask", func(t *testing.T) {
@@ -99,6 +87,32 @@ func TestTodoCLI(t *testing.T) {
 		}
 
 		expected := fmt.Sprintf("  1: %s\n", task2)
+
+		if expected != string(out) {
+			t.Errorf("Expected %q, got %q", expected, string(out))
+		}
+	})
+	t.Run("ListTasks", func(t *testing.T) {
+		cmd := exec.Command(cmdPath, "-list")
+		out, err := cmd.CombinedOutput()
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		expected := fmt.Sprintf("  1: %s\n", task2)
+
+		if expected != string(out) {
+			t.Errorf("Expected %q, got %q", expected, string(out))
+		}
+	})
+	t.Run("ListAllTasks", func(t *testing.T) {
+		cmd := exec.Command(cmdPath, "-all")
+		out, err := cmd.CombinedOutput()
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		expected := fmt.Sprintf("  1: %s\n  2: %s\n", task, task2)
 
 		if expected != string(out) {
 			t.Errorf("Expected %q, got %q", expected, string(out))
