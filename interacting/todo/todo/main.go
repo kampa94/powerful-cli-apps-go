@@ -31,6 +31,11 @@ func main() {
 
 	switch {
 	case *list:
+		for i, item := range *todoList {
+			if item.Done {
+				todoList.Delete(i)
+			}
+		}
 		fmt.Print(todoList)
 	case *complete > 0:
 		if err := todoList.Complete(*complete - 1); err != nil {
