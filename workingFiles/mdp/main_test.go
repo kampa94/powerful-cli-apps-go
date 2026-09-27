@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"io/ioutil"
 	"os"
 	"strings"
 	"testing"
@@ -15,7 +14,7 @@ const (
 )
 
 func TestParseContent(t *testing.T) {
-	input, err := ioutil.ReadFile(inputFile)
+	input, err := os.ReadFile(inputFile)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -34,7 +33,7 @@ func TestParseContent(t *testing.T) {
 func TestRun(t *testing.T) {
 	var mockStdOut bytes.Buffer
 
-	if err := run(inputFile, &mockStdOut); err != nil {
+	if err := run(inputFile, &mockStdOut, true); err != nil {
 		t.Fatal(err)
 	}
 	resultFile := strings.TrimSpace(mockStdOut.String())
