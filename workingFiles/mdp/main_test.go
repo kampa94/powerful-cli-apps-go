@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io/ioutil"
 	"os"
+	"strings"
 	"testing"
 )
 
@@ -29,10 +30,15 @@ func TestParseContent(t *testing.T) {
 		t.Error("Result content does not match golden file")
 	}
 }
+
 func TestRun(t *testing.T) {
-	if err := run(inputFile); err != nil {
+	var mockStdOut bytes.Buffer
+
+	if err := run(inputFile, &mockStdOut); err != nil {
 		t.Fatal(err)
 	}
+	resultFile := strings.TrimSpace(mockStdOut.String())
+
 	result, err := os.ReadFile(resultFile)
 	if err != nil {
 		t.Fatal(err)
